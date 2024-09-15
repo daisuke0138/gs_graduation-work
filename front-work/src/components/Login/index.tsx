@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import styles from "./style.module.scss";
-import Link from "next/link";
 import apiClient from "@/lib/apiClient";
 import router from "next/router";
 import { useAuth } from "@/context/auth";
@@ -16,7 +15,7 @@ const Login = () => {
 
     // 送信の処理を記述します🤗
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         console.log(email);
