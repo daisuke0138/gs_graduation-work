@@ -1,24 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import styles from "./style.module.scss";
 import apiClient from "@/lib/apiClient";
-import router from "next/router";
+import { useRouter } from "next/router";
 
 const Register = () => {
-    // useState　各フォームの入力を保持します🤗
+    const router = useRouter();
     const [username, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    // 送信の処理を記述します🤗
-
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        console.log(username);
-        console.log(email);
-        console.log(password);
-
-        // 追記 APIにデータを送りましょう！
         try {
             await apiClient.post("/auth/register", {
                 username,
@@ -26,10 +19,9 @@ const Register = () => {
                 password,
             });
             alert("アカウント登録できました！");
-            // ログインページに遷移します
             router.push("/login");
         } catch (err) {
-            console.log(err);
+            console.error(err);
             alert("入力の何かが正しくありません！");
         }
     };
@@ -39,8 +31,9 @@ const Register = () => {
             <h3 className={styles.form__title}>アカウントを作成</h3>
 
             <div className={styles.form__item}>
-                <label htmlFor="">お名前</label>
+                <label htmlFor="username">お名前</label>
                 <input
+                    id="username"
                     type="text"
                     value={username}
                     placeholder="お名前を入力してください"
@@ -49,9 +42,10 @@ const Register = () => {
             </div>
 
             <div className={styles.form__item}>
-                <label htmlFor="">メールアドレス</label>
+                <label htmlFor="email">メールアドレス</label>
                 <input
-                    type="text"
+                    id="email"
+                    type="email"
                     value={email}
                     placeholder="メールアドレスを入力してください"
                     onChange={(e) => setEmail(e.target.value)}
@@ -59,16 +53,17 @@ const Register = () => {
             </div>
 
             <div className={styles.form__item}>
-                <label htmlFor="">パスワード</label>
+                <label htmlFor="password">パスワード</label>
                 <input
-                    type="text"
+                    id="password"
+                    type="password"
                     value={password}
                     placeholder="パスワードを入力してください"
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
 
-            <button className={styles.form__btn}>新規登録</button>
+            <button type="submit" className={styles.form__btn}>新規登録</button>
         </form>
     );
 };
