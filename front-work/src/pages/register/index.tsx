@@ -3,7 +3,7 @@ import Header from '@/components/Header'
 import Register from '@/components/Regsiter'
 import React from 'react'
 
-const login = () => {
+const register = () => {
   return (
     <div>
       <Header />
@@ -13,4 +13,4 @@ const login = () => {
   )
 }
 
-export default login
+export default register

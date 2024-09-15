@@ -1,16 +1,16 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import Login from '@/components/Login'
+import Logout from '@/components/Logout'
 import React from 'react'
 
-const login = () => {
+const logout = () => {
   return (
       <div>
-          <Header />
-          <Login />
-          <Footer />
+        <Header />
+        <Logout />
+        <Footer />
       </div>
   )
 }
 
-export default login
+export default logout
