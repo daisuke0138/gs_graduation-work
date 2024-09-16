@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import styles from "./style.module.scss";
 import apiClient from "@/lib/apiClient";
 import Image from 'next/image';
+import styles from "./style.module.scss";
+import Link from "next/link";
+
 
 interface Userdata {
     id: number;
@@ -16,37 +18,38 @@ interface Userdata {
     business_experience: string;
 }
 
-const User: React.FC = () => {
+const Usershow: React.FC = () => {
     const [user, setUser] = useState<Userdata | null>(null);
     const router = useRouter();
+    const { id } = router.query;
 
     useEffect(() => {
+        if (!router.isReady) return; // ルーターが準備できていない場合は何もしない
+
+        console.log('router.query:', router.query); // router.queryの確認
+        console.log('User ID:', id); // IDの確認
+
         const fetchUser = async () => {
-                console.log('Fetching user...'); // デバッグ用ログ
-                const token = localStorage.getItem('auth_token');
-                if (!token) {
-                    router.push('/login'); // トークンがない場合はログインページにリダイレクト
-                    return;
-                }
-            
+            if (!id) return;
+
+            const apiUrl = `/auth/user/${id}`;
+            console.log('API Request URL:', apiUrl); // APIリクエストURLの確認
+
             try {
-                const response = await apiClient.get('/auth/user', {
+                const response = await apiClient.get(apiUrl, {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
                     },
                 });
-                setUser(response.data.user); // レスポンスの構造に合わせて修正
+                console.log('Response data:', response.data); // ここでレスポンスデータをコンソールに表示
+                setUser(response.data.user);
             } catch (error: unknown) {
                 console.error('Failed to fetch user:', error);
-                if (error instanceof Error && (error as { response?: { status: number } }).response?.status === 401) {
-                    router.push('/login'); 
-                }
-                // router.push('/login'); // エラーが発生した場合もログインページにリダイレクト
             }
         };
 
         fetchUser();
-    }, [router]);
+    }, [id, router.isReady, router.query]);
 
     if (!user) {
         return <div>Loading...</div>;
@@ -55,8 +58,10 @@ const User: React.FC = () => {
     return (
         <div className={styles.container}>
             <h2 className={styles.heading}>
-                My Profile
+                User Profile
+                <Link href={`/`}>Menber listへ</Link>
             </h2>
+            
             <table className={styles.table}>
                 <thead>
                     <tr>
@@ -85,4 +90,4 @@ const User: React.FC = () => {
     );
 };
 
-export default User;
+export default Usershow;

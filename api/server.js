@@ -20,6 +20,8 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
+
+// ユーザー登録API
 app.post("/api/auth/register", async (req, res) => {
     const { username, email, password } = req.body;
 
@@ -149,6 +151,29 @@ app.get("/api/auth/users", async (req, res) => {
         return res.json({ users });
     } catch (error) {
         console.error("Error fetching users data:", error);
+        return res.status(500).json({ error: "ユーザーデータの取得中にエラーが発生しました" });
+    }
+});
+
+// 特定のIDのユーザーデータを取得するAPI
+app.get("/api/auth/user/:id", async (req, res) => {
+    // リクエストパラメータからユーザーIDを取得
+    const userId = parseInt(req.params.id, 10);
+
+    try {
+        // Prisma Clientを使用してユーザーを検索
+        const user = await prisma.user.findUnique({
+            where: { id: userId },
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: "ユーザーが見つかりません" });
+        }
+
+        // ユーザー情報をJSON形式で返却
+        return res.json({ user });
+    } catch (error) {
+        console.error("Error fetching user data:", error);
         return res.status(500).json({ error: "ユーザーデータの取得中にエラーが発生しました" });
     }
 });

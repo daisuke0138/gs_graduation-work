@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import styles from "./style.module.scss";
 import apiClient from "@/lib/apiClient";
 import Image from 'next/image';
+import Link from "next/link";
 
 interface User {
     id: number;
@@ -66,14 +67,14 @@ const Menberlist: React.FC = () => {
                 <tbody>
                     {users.map(user => (
                         <tr key={user.id}>
-                            <td><Image src={user.profile_image || '/default-profile.png'} alt="Profile" width={500} height={500} /></td>
+                            <td>写真</td>
                             <td>{user.username}</td>
                             <td>{user.number}</td>
                             <td>{user.department}</td>
                             <td>{user.classification}</td>
                             <td>{user.hoby}</td>
                             <td>{user.business_experience}</td>
-                            <td></td>
+                            <td><Link href={`/usershow?id=${user.id}`}>詳細</Link></td>
                         </tr>
                     ))}
                 </tbody>
