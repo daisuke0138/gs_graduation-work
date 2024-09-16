@@ -16,11 +16,15 @@
                 color: #000;
                 text-decoration: none;
                 transition: all 0.3s;
-
+                padding-right: 1rem;
                 &:hover {
                     opacity: 0.3;
                 }
             }
         }
+    }
+
+    h1 {
+        padding-right: 1rem;
     }
 }

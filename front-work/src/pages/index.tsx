@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/style.module.scss";
 import Header from "@/components/Header";
-import Timeline from "@/components/Timeline";
+import Menberlist from "@/components/Menberlist";
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
 
       <Header />
       <main className={styles.container}>
-        <Timeline />
+        <Menberlist />
       </main>
     </>
   );

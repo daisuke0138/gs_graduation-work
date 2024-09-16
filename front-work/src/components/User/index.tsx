@@ -1,0 +1,87 @@
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import styles from "./style.module.scss";
+import apiClient from "@/lib/apiClient";
+
+interface Userdata {
+    id: number;
+    username: string;
+    email: string;
+    number: string;
+    profile_image: string;
+    department: string;
+    classification: string;
+    hoby: string;
+    business_experience: string;
+}
+
+const User: React.FC = () => {
+    const [user, setUser] = useState<Userdata | null>(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        const fetchUser = async () => {
+                console.log('Fetching user...'); // デバッグ用ログ
+                const token = localStorage.getItem('auth_token');
+                if (!token) {
+                    router.push('/login'); // トークンがない場合はログインページにリダイレクト
+                    return;
+                }
+            
+            try {
+                const response = await apiClient.get('/auth/user', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setUser(response.data.user); // レスポンスの構造に合わせて修正
+            } catch (error) {
+                console.error('Error fetching users:', error);
+                if ((error as any).response && (error as any).response.status === 401) {
+                    router.push('/login'); // 認証エラーの場合もログイン画面へリダイレクト
+                }
+                // router.push('/login'); // エラーが発生した場合もログインページにリダイレクト
+            }
+        };
+
+        fetchUser();
+    }, [router]);
+
+    if (!user) {
+        return <div>Loading...</div>;
+    }
+
+    return (
+        <div className={styles.container}>
+            <h2 className={styles.heading}>
+                My Profile
+            </h2>
+            <table className={styles.table}>
+                <thead>
+                    <tr>
+                        <th>profile</th>
+                        <th>氏名</th>
+                        <th>社員番号</th>
+                        <th>部署</th>
+                        <th>職能</th>
+                        <th>趣味</th>
+                        <th>業務経験</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img src={user.profile_image || '/default-profile.png'} alt="Profile" /></td>
+                        <td>{user.username}</td>
+                        <td>{user.number}</td>
+                        <td>{user.department}</td>
+                        <td>{user.classification}</td>
+                        <td>{user.hoby}</td>
+                        <td>{user.business_experience}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    );
+};
+
+export default User;

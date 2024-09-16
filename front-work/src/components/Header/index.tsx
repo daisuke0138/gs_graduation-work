@@ -5,7 +5,11 @@ import Link from "next/link";
 const Header = () => {
     return (
         <header className={styles.header}>
-            <h1>Knowledge sharing room</h1>
+            <ul>
+                <h1>Knowledge shar room</h1>
+                <Link href={"/"}>Menber List</Link>
+                <Link href={"/user"}>My Profile</Link>
+            </ul>
             <ul>
                 <li>
                     <Link href={"/login"}>Login</Link>
