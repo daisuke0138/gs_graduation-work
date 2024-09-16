@@ -1,51 +1,73 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FormEvent, ChangeEvent } from "react";
 import { useRouter } from "next/router";
-import styles from "./style.module.scss";
 import apiClient from "@/lib/apiClient";
+import Image from 'next/image';
+import styles from "./style.module.scss";
 
 interface Userdata {
     id: number;
     username: string;
-    email: string;
     number: string;
-    profile_image: string;
     department: string;
     classification: string;
     hoby: string;
     business_experience: string;
 }
 
-const User: React.FC = () => {
+const Useredit: React.FC = () => {
     const [user, setUser] = useState<Userdata | null>(null);
+    const [formData, setFormData] = useState<Userdata | null>(null);
     const router = useRouter();
+    const { id } = router.query;
 
     useEffect(() => {
+        if (!router.isReady) return;
+
         const fetchUser = async () => {
-                console.log('Fetching user...'); // デバッグ用ログ
-                const token = localStorage.getItem('auth_token');
-                if (!token) {
-                    router.push('/login'); // トークンがない場合はログインページにリダイレクト
-                    return;
-                }
-            
             try {
-                const response = await apiClient.get('/auth/user', {
+                const response = await apiClient.post(`/auth/useredit`, {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
                     },
                 });
-                setUser(response.data.user); // レスポンスの構造に合わせて修正
-            } catch (error: unknown) {
+                setUser(response.data.user);
+                setFormData(response.data.user);
+            } catch (error) {
                 console.error('Failed to fetch user:', error);
-                if (error instanceof Error && (error as { response?: { status: number } }).response?.status === 401) {
-                    router.push('/login'); 
-                }
-                // router.push('/login'); // エラーが発生した場合もログインページにリダイレクト
+                router.push('/login');
             }
         };
 
         fetchUser();
-    }, [router]);
+    }, [router, id]);
+
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        if (!formData) return;
+
+        try {
+            const response = await apiClient.post(`/auth/useredit`, formData, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
+                },
+            });
+            console.log('User updated:', response.data);
+            // フォーム送信完了後にリダイレクト
+            router.push('/user');
+        } catch (error) {
+            console.error('Failed to update user:', error);
+        }
+    };
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        if (formData) {
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
+        }
+    };
 
     if (!user) {
         return <div>Loading...</div>;
@@ -53,35 +75,82 @@ const User: React.FC = () => {
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.heading}>
-                My Profile
-            </h2>
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                        <th>profile</th>
-                        <th>氏名</th>
-                        <th>社員番号</th>
-                        <th>部署</th>
-                        <th>職能</th>
-                        <th>趣味</th>
-                        <th>業務経験</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>写真</td>
-                        <td>{user.username}</td>
-                        <td>{user.number}</td>
-                        <td>{user.department}</td>
-                        <td>{user.classification}</td>
-                        <td>{user.hoby}</td>
-                        <td>{user.business_experience}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <form onSubmit={handleSubmit}>
+                <div>
+                <h2 className={styles.heading}>
+                    My Profile
+                    <button className={styles.button} type="submit">保存</button>
+                </h2>
+                </div>
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>profile</th>
+                            <th>氏名</th>
+                            <th>社員番号</th>
+                            <th>部署</th>
+                            <th>職能</th>
+                            <th>趣味</th>
+                            <th>業務経験</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>写真</td>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="username"
+                                    value={formData?.username || ''}
+                                    onChange={handleChange}
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="number"
+                                    value={formData?.number || ''}
+                                    onChange={handleChange}
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="department"
+                                    value={formData?.department || ''}
+                                    onChange={handleChange}
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="classification"
+                                    value={formData?.classification || ''}
+                                    onChange={handleChange}
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="hoby"
+                                    value={formData?.hoby || ''}
+                                    onChange={handleChange}
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="business_experience"
+                                    value={formData?.business_experience || ''}
+                                    onChange={handleChange}
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
         </div>
     );
 };
 
-export default User;
+export default Useredit;

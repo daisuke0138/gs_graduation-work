@@ -73,7 +73,7 @@ const Menberlist: React.FC = () => {
                             <td>{user.classification}</td>
                             <td>{user.hoby}</td>
                             <td>{user.business_experience}</td>
-                            <td><Link href={`/usershow?id=${user.id}`}>詳細</Link></td>
+                            <td><Link href={`/menbershow?id=${user.id}`}>詳細</Link></td>
                         </tr>
                     ))}
                 </tbody>

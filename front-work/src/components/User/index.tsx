@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "./style.module.scss";
 import apiClient from "@/lib/apiClient";
+import Link from "next/link";
 
 interface Userdata {
     id: number;
@@ -55,6 +56,7 @@ const User: React.FC = () => {
         <div className={styles.container}>
             <h2 className={styles.heading}>
                 My Profile
+                <Link className={styles.link} href={`/useredit`}>プロフedit</Link>
             </h2>
             <table className={styles.table}>
                 <thead>

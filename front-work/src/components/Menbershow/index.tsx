@@ -17,7 +17,7 @@ interface Userdata {
     business_experience: string;
 }
 
-const Usershow: React.FC = () => {
+const Mebershow: React.FC = () => {
     const [user, setUser] = useState<Userdata | null>(null);
     const router = useRouter();
     const { id } = router.query;
@@ -89,4 +89,4 @@ const Usershow: React.FC = () => {
     );
 };
 
-export default Usershow;
+export default Mebershow;

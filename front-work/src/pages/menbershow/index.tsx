@@ -1,16 +1,16 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import Usershow from '@/components/Usershow'
+import Mebershow from '@/components/Menbershow'
 import React from 'react'
 
-const usershow = () => {
+const mebershow = () => {
   return (
       <div>
           <Header />
-          <Usershow />
+          <Mebershow />
           <Footer />
       </div>
   )
 }
 
-export default usershow
+export default mebershow

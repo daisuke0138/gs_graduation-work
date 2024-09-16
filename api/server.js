@@ -131,6 +131,54 @@ app.get("/api/auth/user", async (req, res) => {
     }
 });
 
+// ログインしているユーザーのデータ編集するAPI
+app.post("/api/auth/useredit", async (req, res) => {
+    // リクエストヘッダーからトークンを取得
+    const token = req.headers.authorization?.split(' ')[1];
+
+    if (!token) {
+        return res.status(401).json({ error: "トークンが提供されていません" });
+    }
+
+    try {
+        // トークンを検証してユーザーIDを取得
+        const decoded = jwt.verify(token, process.env.KEY);
+        const userId = decoded.id;
+
+        // ユーザーIDをログに出力
+        console.log("Userid:", userId);
+
+        const user = await prisma.user.findUnique({
+            where: { id: userId },
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: "ユーザーが見つかりません" });
+        }
+
+        // ユーザー情報を更新
+        const updatedUser = await prisma.user.update({
+            where: { id: userId },
+            data: {
+                username: req.body.username || user.username,
+                email: req.body.email || user.email,
+                number: req.body.number || user.number,
+                department: req.body.department || user.department,
+                classification: req.body.classification || user.classification,
+                hoby: req.body.hoby || user.hoby,
+                business_experience: req.body.business_experience || user.business_experience,
+            },
+        });
+
+        // 更新されたユーザー情報をJSON形式で返却
+        return res.json({ user: updatedUser });
+    } catch (error) {
+        console.error("Error updating user data:", error);
+        return res.status(500).json({ error: "ユーザーデータの更新中にエラーが発生しました" });
+    }
+});
+
+
 // 全登録済みユーザーのデータを取得するAPI
 app.get("/api/auth/users", async (req, res) => {
     try {
