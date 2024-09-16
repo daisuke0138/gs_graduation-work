@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "./style.module.scss";
 import apiClient from "@/lib/apiClient";
+import Image from 'next/image';
 
 interface User {
     id: number;
@@ -33,9 +34,9 @@ const Menberlist: React.FC = () => {
                     },
                 });
                 setUsers(response.data.users);
-            } catch (error) {
-                console.error('Error fetching users:', error);
-                if ((error as any).response && (error as any).response.status === 401) {
+            } catch (error: unknown) {
+                console.error('Failed to fetch user:', error);
+                if (error instanceof Error && (error as any).response && (error as any).response.status === 401) {
                     router.push('/login'); // 認証エラーの場合もログイン画面へリダイレクト
                 }
             }
@@ -65,7 +66,7 @@ const Menberlist: React.FC = () => {
                 <tbody>
                     {users.map(user => (
                         <tr key={user.id}>
-                            <td><img src={user.profile_image || '/default-profile.png'} alt="Profile" /></td>
+                            <td><Image src={user.profile_image || '/default-profile.png'} alt="Profile" width={500} height={500} /></td>
                             <td>{user.username}</td>
                             <td>{user.number}</td>
                             <td>{user.department}</td>

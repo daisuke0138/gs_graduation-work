@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "./style.module.scss";
 import apiClient from "@/lib/apiClient";
+import Image from 'next/image';
 
 interface Userdata {
     id: number;
@@ -35,10 +36,10 @@ const User: React.FC = () => {
                     },
                 });
                 setUser(response.data.user); // レスポンスの構造に合わせて修正
-            } catch (error) {
-                console.error('Error fetching users:', error);
-                if ((error as any).response && (error as any).response.status === 401) {
-                    router.push('/login'); // 認証エラーの場合もログイン画面へリダイレクト
+            } catch (error: unknown) {
+                console.error('Failed to fetch user:', error);
+                if (error instanceof Error && (error as any).response && (error as any).response.status === 401) {
+                    router.push('/login'); 
                 }
                 // router.push('/login'); // エラーが発生した場合もログインページにリダイレクト
             }
@@ -70,7 +71,7 @@ const User: React.FC = () => {
                 </thead>
                 <tbody>
                     <tr>
-                        <td><img src={user.profile_image || '/default-profile.png'} alt="Profile" /></td>
+                        <td><Image src={user.profile_image || '/default-profile.png'} alt="Profile" width={500} height={500} /></td>
                         <td>{user.username}</td>
                         <td>{user.number}</td>
                         <td>{user.department}</td>
