@@ -36,7 +36,7 @@ const Menberlist: React.FC = () => {
                 setUsers(response.data.users);
             } catch (error: unknown) {
                 console.error('Failed to fetch user:', error);
-                if (error instanceof Error && (error as any).response && (error as any).response.status === 401) {
+                if (error instanceof Error && (error as { response?: { status: number } }).response?.status === 401) {
                     router.push('/login'); // 認証エラーの場合もログイン画面へリダイレクト
                 }
             }

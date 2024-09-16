@@ -38,7 +38,7 @@ const User: React.FC = () => {
                 setUser(response.data.user); // レスポンスの構造に合わせて修正
             } catch (error: unknown) {
                 console.error('Failed to fetch user:', error);
-                if (error instanceof Error && (error as any).response && (error as any).response.status === 401) {
+                if (error instanceof Error && (error as { response?: { status: number } }).response?.status === 401) {
                     router.push('/login'); 
                 }
                 // router.push('/login'); // エラーが発生した場合もログインページにリダイレクト
