@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import apiClient from "@/lib/apiClient";
-import Image from 'next/image';
 import styles from "./style.module.scss";
 import Link from "next/link";
 

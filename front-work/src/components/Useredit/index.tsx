@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "./style.module.scss";
 import apiClient from "@/lib/apiClient";
-import Image from 'next/image';
 
 interface Userdata {
     id: number;
