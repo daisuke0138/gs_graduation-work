@@ -6,9 +6,10 @@ const Header = () => {
     return (
         <header className={styles.header}>
             <ul>
-                <h1>Knowledge shar room</h1>
+                <h1>Knowledge sharing room</h1>
                 <Link href={"/"}>Menber List</Link>
                 <Link href={"/user"}>My Profile</Link>
+                <Link href={"/doc"}>Document creat</Link>
             </ul>
             <ul>
                 <li>

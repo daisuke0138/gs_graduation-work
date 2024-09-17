@@ -22,13 +22,11 @@ const User: React.FC = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
-                console.log('Fetching user...'); // デバッグ用ログ
                 const token = localStorage.getItem('auth_token');
                 if (!token) {
                     router.push('/login'); // トークンがない場合はログインページにリダイレクト
                     return;
                 }
-            
             try {
                 const response = await apiClient.get('/auth/user', {
                     headers: {
@@ -41,10 +39,8 @@ const User: React.FC = () => {
                 if (error instanceof Error && (error as { response?: { status: number } }).response?.status === 401) {
                     router.push('/login'); 
                 }
-                // router.push('/login'); // エラーが発生した場合もログインページにリダイレクト
             }
         };
-
         fetchUser();
     }, [router]);
 
@@ -57,6 +53,7 @@ const User: React.FC = () => {
             <h2 className={styles.heading}>
                 My Profile
                 <Link className={styles.link} href={`/useredit`}>プロフedit</Link>
+                <Link className={styles.link} href={`/doc`}>Document creat</Link>
             </h2>
             <table className={styles.table}>
                 <thead>
@@ -85,5 +82,4 @@ const User: React.FC = () => {
         </div>
     );
 };
-
 export default User;
