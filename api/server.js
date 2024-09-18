@@ -1,8 +1,5 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
-const app = express();
-const prisma = new PrismaClient();
-const PORT = process.env.PORT || 3001;
 
 // パスワードハッシュ化
 const bcrypt = require("bcrypt");
@@ -10,16 +7,18 @@ const bcrypt = require("bcrypt");
 // JWTトークン生成
 const jwt = require("jsonwebtoken");
 
-// 環境変数=秘密の鍵が使えるようにdotenvを記述して使えるようにします🤗
-require("dotenv");
-
 //CORS対策
 const cors = require("cors");
 
+// 環境変数=秘密の鍵が使えるようにdotenvを記述して使えるようにします🤗
+require("dotenv");
+
+const app = express();
+const prisma = new PrismaClient();
 // jsで書いた文字列をjsonに変換するためのおまじないです
 app.use(cors());
 app.use(express.json());
-
+const PORT = process.env.PORT || 3001;
 
 // ユーザー登録API
 app.post("/api/auth/register", async (req, res) => {
