@@ -89,7 +89,7 @@ app.post("/api/auth/login", async (req, res) => {
     });
 
     // トークンをレスポンスとして返却
-    return res.json({ token });
+    return res.json({ token , isPasswordCheck });
 });
 
 // ログアウトAPI

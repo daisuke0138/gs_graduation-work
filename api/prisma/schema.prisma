@@ -10,10 +10,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "https://cixdpeeyihebpjoopncy.supabase.co"
+  url      = env("DATABASE_URL")
 }
-
-////  url      = env("DATABASE_URL")
 
 ////model 情報
 model User {
