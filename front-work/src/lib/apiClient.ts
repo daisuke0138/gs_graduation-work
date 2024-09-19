@@ -5,10 +5,11 @@ const apiClient = axios.create({
     // baseURL: process.env.NEXT_PUBLIC_API_BASEURL,
     baseURL: process.env.NODE_ENV === 'development'
         ? 'http://localhost:3001/api'
-        : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`,
+        : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`,
     headers: {
         "Content-Type": "application/json",
     },
 });
+console.log(apiClient);
 
 export default apiClient;
