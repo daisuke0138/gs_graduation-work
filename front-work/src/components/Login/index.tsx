@@ -20,14 +20,15 @@ const Login = () => {
 
         console.log(email);
         console.log(password);
-
+        console.log(process.env.NEXT_PUBLIC_VERCEL_URL);
+        console.log(process.env.NEXT_PUBLIC_API_BASEURL);
         // 追記 APIにデータを送りましょう！
         try {
+            console.log(process.env.NEXT_PUBLIC_VERCEL_URL);
             const response = await apiClient.post("/api/auth/login", {
                 email,
                 password,
             });
-
             const token = response.data.token;
             console.log(token);
             // ここで使用する
