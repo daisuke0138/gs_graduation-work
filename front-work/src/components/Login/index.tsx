@@ -12,7 +12,6 @@ const Login = () => {
     // 呼び出し追記
     const { login } = useAuth();
 
-
     // 送信の処理を記述します🤗
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -21,7 +20,6 @@ const Login = () => {
         console.log(email);
         console.log(password);
         console.log(process.env.NEXT_PUBLIC_VERCEL_URL);
-        console.log(process.env.NEXT_PUBLIC_API_BASEURL);
         // 追記 APIにデータを送りましょう！
         try {
             console.log(process.env.NEXT_PUBLIC_VERCEL_URL);
@@ -29,7 +27,6 @@ const Login = () => {
                 email,
                 password,
             });
-            console.log(process.env.NEXT_PUBLIC_VERCEL_URL);
             const token = response.data.token;
             console.log(token);
             // ここで使用する

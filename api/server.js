@@ -7,11 +7,11 @@ const bcrypt = require("bcrypt");
 // JWTトークン生成
 const jwt = require("jsonwebtoken");
 
-//CORS対策
-const cors = require("cors");
-
 // 環境変数=秘密の鍵が使えるようにdotenvを記述して使えるようにします🤗
 require("dotenv");
+
+//CORS対策
+const cors = require("cors");
 
 const app = express();
 const prisma = new PrismaClient();
