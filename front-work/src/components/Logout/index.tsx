@@ -12,7 +12,7 @@ const Logout = () => {
         e.preventDefault();
 
         try {
-            await apiClient.post("auth/logout");
+            await apiClient.post("/api/auth/logout");
             logout(); // ログアウト処理を呼び出し
             alert("ログアウトが成功しました！");
             router.push("/login"); // ログインページにリダイレクト

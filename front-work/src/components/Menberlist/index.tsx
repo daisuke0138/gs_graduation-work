@@ -28,7 +28,7 @@ const Menberlist: React.FC = () => {
             }
 
             try {
-                const response = await apiClient.get('/auth/users', {
+                const response = await apiClient.get('/api/auth/users', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
