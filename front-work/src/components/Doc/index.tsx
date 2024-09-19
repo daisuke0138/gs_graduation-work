@@ -150,7 +150,7 @@ const Doc: React.FC = () => {
                     <button id="loadButton">読み込み</button>
                     <button id="clearButton">クリア</button>
                 </div>
-                <canvas className={styles.canvas} id="myCanvas"></canvas>
+                <canvas className={styles.canvassize} id="myCanvas"></canvas>
             </div>
         </div>
     );
