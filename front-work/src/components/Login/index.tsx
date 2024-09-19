@@ -29,6 +29,7 @@ const Login = () => {
                 email,
                 password,
             });
+            console.log(process.env.NEXT_PUBLIC_VERCEL_URL);
             const token = response.data.token;
             console.log(token);
             // ここで使用する
