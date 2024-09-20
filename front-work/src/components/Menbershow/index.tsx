@@ -31,7 +31,7 @@ const Mebershow: React.FC = () => {
         const fetchUser = async () => {
             if (!id) return;
 
-            const apiUrl = `/api/auth/user/${id}`;
+            const apiUrl = `/auth/user/${id}`;
             console.log('API Request URL:', apiUrl); // APIリクエストURLの確認
 
             try {

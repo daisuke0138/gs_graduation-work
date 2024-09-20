@@ -23,7 +23,7 @@ const Login = () => {
         console.log(process.env.NEXT_PUBLIC_API_BASEURL);
         // 追記 APIにデータを送りましょう！
         try {
-            const response = await apiClient.post("/api/auth/login", {
+            const response = await apiClient.post("/auth/login", {
                 email,
                 password,
             });

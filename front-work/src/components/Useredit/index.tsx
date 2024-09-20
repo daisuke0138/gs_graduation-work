@@ -24,7 +24,7 @@ const Useredit: React.FC = () => {
 
         const fetchUser = async () => {
             try {
-                const response = await apiClient.post(`/api/auth/useredit`, {
+                const response = await apiClient.post(`/auth/useredit`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
                     },
@@ -45,7 +45,7 @@ const Useredit: React.FC = () => {
         if (!formData) return;
 
         try {
-            const response = await apiClient.post(`/api/auth/useredit`, formData, {
+            const response = await apiClient.post(`/auth/useredit`, formData, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
                 },
