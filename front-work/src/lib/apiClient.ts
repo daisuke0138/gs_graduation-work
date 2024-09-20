@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = process.env.NEXT_PUBLIC_API_BASEURL || `https://${process.env.VERCEL_URL}/api`;
+const baseURL = process.env.NEXT_PUBLIC_API_BASEURL || `https://${process.env.NXET_VERCEL_URL}/api`;
 
 const apiClient = axios.create({
     // baseURL: "http://localhost:3001/api",
