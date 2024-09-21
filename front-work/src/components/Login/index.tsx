@@ -19,8 +19,6 @@ const Login = () => {
 
         console.log(email);
         console.log(password);
-        console.log(process.env.NEXT_PUBLIC_VERCEL_URL);
-        console.log(process.env.NEXT_PUBLIC_API_BASEURL);
         // 追記 APIにデータを送りましょう！
         try {
             const response = await apiClient.post("/auth/login", {
@@ -56,14 +54,14 @@ const Login = () => {
             </div>
 
             <div className={styles.form__item}>
-                <label htmlFor="password">パスワード</label>
-                <input
-                    id="password"
-                    type="text"
-                    value={password}
-                    placeholder="パスワードを入力してください"
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+        <label htmlFor="password">パスワード</label>
+        <input
+            id="password"
+            type="text"
+            value={password}
+            placeholder="パスワードを入力してください"
+            onChange={(e) => setPassword(e.target.value)}
+        />
             </div>
 
             <button className={styles.form__btn}>ログイン</button>

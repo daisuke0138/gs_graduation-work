@@ -28,7 +28,7 @@ const Doc: React.FC = () => {
             return;
         }
         try {
-            const response = await apiClient.get('/api/user', {
+            const response = await apiClient.get('/auth/user', {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setUser(response.data);
