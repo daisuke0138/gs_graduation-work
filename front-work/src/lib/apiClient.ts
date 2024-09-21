@@ -18,7 +18,7 @@ import axios from "axios";
 const apiClient = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL + '/auth/v1',
     headers: {
-        'apikey': process.env.SUPABASE_API_KEY, // SupabaseのAPIキー
+        'apikey': process.env.NEXT_PUBLIC_SUPABASE_API_KEY, // SupabaseのAPIキー
         'Content-Type': 'application/json',
     },
 });
