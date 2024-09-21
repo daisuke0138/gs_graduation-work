@@ -26,6 +26,7 @@ const apiClient = axios.create({
 apiClient.post('/token', {
     email: 'tanaka@co.jp',
     password: '12345678',
+    grant_type: 'password',     // grant_typeを明示的に指定
 })
     .then(response => {
         console.log(response.data);
