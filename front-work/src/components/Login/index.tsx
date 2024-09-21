@@ -45,8 +45,9 @@ const Login = () => {
             <h3 className={styles.form__title}>ログイン</h3>
 
             <div className={styles.form__item}>
-                <label htmlFor="">メールアドレス</label>
+                <label htmlFor="email">メールアドレス</label>
                 <input
+                    id="email"
                     type="text"
                     value={email}
                     placeholder="メールアドレスを入力してください"
@@ -55,8 +56,9 @@ const Login = () => {
             </div>
 
             <div className={styles.form__item}>
-                <label htmlFor="">パスワード</label>
+                <label htmlFor="password">パスワード</label>
                 <input
+                    id="password"
                     type="text"
                     value={password}
                     placeholder="パスワードを入力してください"
