@@ -18,7 +18,17 @@ const prisma = new PrismaClient();
 // jsで書いた文字列をjsonに変換するためのおまじないです
 app.use(cors());
 app.use(express.json());
+
+// APIルート設定を行う位置
+// const apiRoutes = require('./api');  // ルートモジュールを読み込む
+app.use('/api')
+
+// ポート設定
 const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
 
 // ユーザー登録API
 app.post("/api/auth/register", async (req, res) => {
@@ -88,7 +98,7 @@ app.post("/api/auth/login", async (req, res) => {
     });
 
     // トークンをレスポンスとして返却
-    return res.json({token});
+    return res.json({ token });
 });
 
 // ログアウトAPI
