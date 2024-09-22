@@ -4,6 +4,10 @@
         {
             "src": "api/index.js",
             "use": "@vercel/node"
+        },
+        {
+            "src": "front-work/next.config.js",
+            "use": "@vercel/next"
         }
     ],
     "routes": [
