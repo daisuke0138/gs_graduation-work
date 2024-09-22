@@ -232,4 +232,4 @@ app.get("/api/auth/user/:id", async (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log("server start"));
+// app.listen(PORT, () => console.log("server start"));
