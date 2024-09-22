@@ -12,6 +12,8 @@ require('dotenv').config()
 
 //CORS対策
 const cors = require("cors");
+const net = require('net'); // 追加
+
 
 const app = express();
 const prisma = new PrismaClient();
@@ -22,12 +24,7 @@ app.use(express.json());
 // APIルート設定を行う位置
 // const apiRoutes = require('./api');  // ルートモジュールを読み込む
 // app.use('/api')
-
-// ポート設定
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
 
 
 // ユーザー登録API
@@ -235,5 +232,4 @@ app.get("/api/auth/user/:id", async (req, res) => {
     }
 });
 
-// ここでサーバーを起動させます
 app.listen(PORT, () => console.log("server start"));
