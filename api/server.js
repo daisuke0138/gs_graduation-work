@@ -21,7 +21,7 @@ app.use(express.json());
 
 // APIルート設定を行う位置
 // const apiRoutes = require('./api');  // ルートモジュールを読み込む
-app.use('/api')
+// app.use('/api')
 
 // ポート設定
 const PORT = process.env.PORT || 3001;
