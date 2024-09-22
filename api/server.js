@@ -21,7 +21,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 3001;
 
 // ユーザー登録API
-app.post("/backend-api/auth/register", async (req, res) => {
+app.post("/api/auth/register", async (req, res) => {
     const { username, email, password } = req.body;
 
     // 暗号化対応=bcryptを使ってハッシュ化する🤗
@@ -60,7 +60,7 @@ app.post("/backend-api/auth/register", async (req, res) => {
 
 
 // ログインAPI
-app.post("/backend-api/auth/login", async (req, res) => {
+app.post("/api/auth/login", async (req, res) => {
     // email, passwordをチェックするために取得します
     const { email, password } = req.body;
 
@@ -92,14 +92,14 @@ app.post("/backend-api/auth/login", async (req, res) => {
 });
 
 // ログアウトAPI
-app.post("/backend-api/auth/logout", (req, res) => {
+app.post("/api/auth/logout", (req, res) => {
     // クライアント側でセッションやトークンを削除するように指示
     res.setHeader('Set-Cookie', 'token=; HttpOnly; Max-Age=0'); // クッキーを無効化
     return res.json({ message: "ログアウトしました" });
 });
 
 // ログインしているユーザーのデータを取得するAPI
-app.get("/backend-api/auth/user", async (req, res) => {
+app.get("/api/auth/user", async (req, res) => {
     // リクエストヘッダーからトークンを取得
     const token = req.headers.authorization?.split(' ')[1];
 
@@ -131,7 +131,7 @@ app.get("/backend-api/auth/user", async (req, res) => {
 });
 
 // ログインしているユーザーのデータ編集するAPI
-app.post("/backend-api/auth/useredit", async (req, res) => {
+app.post("/api/auth/useredit", async (req, res) => {
     // リクエストヘッダーからトークンを取得
     const token = req.headers.authorization?.split(' ')[1];
 
@@ -179,7 +179,7 @@ app.post("/backend-api/auth/useredit", async (req, res) => {
 
 
 // 全登録済みユーザーのデータを取得するAPI
-app.get("/backend-api/auth/users", async (req, res) => {
+app.get("/api/auth/users", async (req, res) => {
     try {
         const users = await prisma.user.findMany({
             select: {
@@ -203,7 +203,7 @@ app.get("/backend-api/auth/users", async (req, res) => {
 });
 
 // 特定のIDのユーザーデータを取得するAPI
-app.get("/backend-api/auth/user/:id", async (req, res) => {
+app.get("/api/auth/user/:id", async (req, res) => {
     // リクエストパラメータからユーザーIDを取得
     const userId = parseInt(req.params.id, 10);
 
