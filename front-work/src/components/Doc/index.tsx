@@ -117,8 +117,9 @@ const Doc: React.FC = () => {
             loadButton?.removeEventListener('click', handleLoadClick);
             clearButton?.removeEventListener('click', handleClearClick);
         };
-    }, []); // 依存配列を空にする
+    },);
 
+    
     return (
         <div className={styles.container}>
             <h2 className={styles.heading}>
