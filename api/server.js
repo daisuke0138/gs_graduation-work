@@ -8,7 +8,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // 環境変数=秘密の鍵が使えるようにdotenvを記述して使えるようにします🤗
-require("dotenv");
+require('dotenv').config()
 
 //CORS対策
 const cors = require("cors");
