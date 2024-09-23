@@ -17,7 +17,7 @@
         },
         {
             "src": "/",
-            "dest": "/front-work/src/pages/index.tsx"
+            "dest": "/front-work/index.tsx"
         }
     ]
 }
