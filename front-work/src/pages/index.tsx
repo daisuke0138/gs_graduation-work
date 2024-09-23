@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/style.module.scss";
 import Header from "@/components/Header";
-import Menberlist from "@/components/Menberlist";
+
 
 export default function Home() {
   return (
@@ -15,7 +15,9 @@ export default function Home() {
 
       <Header />
       <main className={styles.container}>
-        <Menberlist />
+        <h1 className={styles.title}>
+          Welcome to <a href="https://nextjs.org">Gs graduation work!</a>
+        </h1>
       </main>
     </>
   );
