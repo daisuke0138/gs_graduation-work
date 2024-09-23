@@ -15,10 +15,11 @@ export default function Home() {
 
       <Header />
       <main className={styles.container}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Gs graduation work!</a>
+        <h1>
+          test!!
         </h1>
       </main>
+    
     </>
   );
 }
